@@ -1,3 +1,4 @@
+
 data "aws_ami" "app_ami" {
   most_recent = true
 
@@ -12,12 +13,12 @@ data "aws_ami" "app_ami" {
     name   = "state"
     values = ["available"]
   }
-}
 
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
   }
+}
 
   owners = ["979382823631"] # Bitnami
 }
