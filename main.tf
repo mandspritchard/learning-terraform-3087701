@@ -1,7 +1,7 @@
 data "aws_ami" "app_ami" {
   most_recent = true
 
-  owners = ["amazon", "aws-marketplace"
+  owners = ["amazon", "aws-marketplace"]
 
   filter {
     name   = "name"
