@@ -41,9 +41,9 @@ resource "aws_instance" "blog" {
 
 module "blog_sg" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = "6.0.1"
+  version = "6.0.0"
 
-  name    = "blog_new"
+  name    = "blog_sg"
   vpc_id  = data.aws_vpc.default.id
 
   ingress_with_cidr_blocks = [
