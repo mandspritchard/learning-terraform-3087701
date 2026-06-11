@@ -44,7 +44,7 @@ module "blog_sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "6.0.0"
 
-  name   = "blog-sg"
+  name   = "blog-new"
   vpc_id = data.aws_vpc.default.id
 
   ingress_rules = {
@@ -53,7 +53,7 @@ module "blog_sg" {
       to_port     = 80
       protocol    = "tcp"
       description = "HTTP"
-      cidr_blocks = ["0.0.0.0/0"]
+      cidr_ipv4   = ["0.0.0.0/0"]
     }
 
     https = {
@@ -61,19 +61,19 @@ module "blog_sg" {
       to_port     = 443
       protocol    = "tcp"
       description = "HTTPS"
-      cidr_blocks = ["0.0.0.0/0"]
+      cidr_ipv4   = ["0.0.0.0/0"]
     }
   }
 
-  egress_rules = [
+  egress_rules = {
     {
       from_port   = 0
       to_port     = 0
       protocol    = "-1"
       description = "Allow all outbound"
-      cidr_blocks = ["0.0.0.0/0"]
+      cidr_ipv4   = ["0.0.0.0/0"]
     }
-  ]
+  }
 }
 
 resource "aws_security_group" "blog" {
