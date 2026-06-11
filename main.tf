@@ -47,11 +47,25 @@ module "blog_sg" {
 
   vpc_id = data.aws_vpc.default.id
 
-  ingress_rules       = ["http-80-tcp","https-443-tcp"]
-  ingress_cidr_blocks = ["0.0.0.0/0"]
 
-  egress_rules        = ["all-all"]
-  egress_cidr_blocks  = ["0.0.0.0/0"]
+  ingress_with_cidr_blocks = [
+    {
+      rule        = "http-80-tcp"
+     cidr_blocks = "0.0.0.0/0"
+    },
+    {
+      rule        = "https-443-tcp"
+      cidr_blocks = "0.0.0.0/0"
+    }
+  ]
+
+  egress_with_cidr_blocks = [
+    {
+      rule        = "all-all"
+      cidr_blocks = "0.0.0.0/0"
+    }
+  ]
+
 }
 
 resource "aws_security_group" "blog" {
