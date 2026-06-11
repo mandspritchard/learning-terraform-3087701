@@ -1,4 +1,3 @@
-
 data "aws_ami" "app_ami" {
   most_recent = true
 
@@ -42,11 +41,10 @@ resource "aws_instance" "blog" {
 
 module "blog_sg" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = "6.0.0"
+  version = "6.0.1"
+
   name    = "blog_new"
-
-  vpc_id = data.aws_vpc.default.id
-
+  vpc_id  = data.aws_vpc.default.id
 
   ingress_with_cidr_blocks = [
     {
