@@ -10,6 +10,11 @@ data "aws_ami" "app_ami" {
   }
 
   filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
+
+  filter {
     name   = "state"
     values = ["available"]
   }
