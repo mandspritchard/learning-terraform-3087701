@@ -1,10 +1,18 @@
 data "aws_ami" "app_ami" {
   most_recent = true
 
+  owners = ["amazon", "aws-marketplace"
+
   filter {
     name   = "name"
     values = ["*tomcat*"]
   }
+
+  filter {
+    name   = "state"
+    values = ["available"]
+  }
+}
 
   filter {
     name   = "virtualization-type"
