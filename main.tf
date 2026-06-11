@@ -47,14 +47,14 @@ module "blog_sg" {
   name   = "blog-sg"
   vpc_id = data.aws_vpc.default.id
 
-  ingress_rules = [
+  ingress_rules = {
     http = {
       from_port   = 80
       to_port     = 80
       protocol    = "tcp"
       description = "HTTP"
       cidr_blocks = ["0.0.0.0/0"]
-    },
+    }
 
     https = {
       from_port   = 443
@@ -63,7 +63,7 @@ module "blog_sg" {
       description = "HTTPS"
       cidr_blocks = ["0.0.0.0/0"]
     }
-  ]
+  }
 
   egress_rules = [
     {
