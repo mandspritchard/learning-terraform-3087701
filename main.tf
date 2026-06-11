@@ -54,7 +54,7 @@ module "blog_sg" {
       protocol    = "tcp"
       description = "HTTP"
       cidr_blocks = ["0.0.0.0/0"]
-    }
+    },
 
     https = {
       from_port   = 443
