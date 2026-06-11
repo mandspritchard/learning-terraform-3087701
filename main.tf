@@ -39,31 +39,40 @@ resource "aws_instance" "blog" {
   }
 }
 
+
 module "blog_sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "6.0.0"
 
-  name    = "blog_sg"
-  vpc_id  = data.aws_vpc.default.id
+  name   = "blog-sg"
+  vpc_id = data.aws_vpc.default.id
 
-  ingress_with_cidr_blocks = [
+  ingress_rules = [
     {
-      rule        = "http-80-tcp"
-     cidr_blocks = "0.0.0.0/0"
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      description = "HTTP"
+      cidr_blocks = ["0.0.0.0/0"]
     },
     {
-      rule        = "https-443-tcp"
-      cidr_blocks = "0.0.0.0/0"
+      from_port   = 443
+      to_port     = 443
+      protocol    = "tcp"
+      description = "HTTPS"
+      cidr_blocks = ["0.0.0.0/0"]
     }
   ]
 
-  egress_with_cidr_blocks = [
+  egress_rules = [
     {
-      rule        = "all-all"
-      cidr_blocks = "0.0.0.0/0"
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      description = "Allow all outbound"
+      cidr_blocks = ["0.0.0.0/0"]
     }
   ]
-
 }
 
 resource "aws_security_group" "blog" {
