@@ -3,7 +3,7 @@ data "aws_ami" "app_ami" {
 
   filter {
     name   = "name"
-    values = ["bitnami-tomcat-*"]
+    values = ["*tomcat*"]
   }
 
   filter {
