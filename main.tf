@@ -72,3 +72,45 @@ module "blog_sg" {
   egress_cidr_blocks  = ["0.0.0.0/0"]
 
     }
+
+module "blog_alb" {
+  source = "terraform-aws-modules/alb/aws"
+
+  name    = "blog_alb"
+  vpc_id  = "module.blog_vpc.vpc_id"
+  subnets = module.blog_vpc.public_subnets
+
+  Security_groups = [module.blog_eg.security_group_id]
+ 
+  listeners = {
+    blog-http = {
+      port     = 80
+      protocol = "HTTP"
+      forward = {
+        taret_group_arn = aws_lb_target_group.blog.arn
+      }
+    }
+ 
+      }
+    }
+  
+
+ 
+
+  tags = {
+    Environment = "dev"
+    
+  }
+
+resource "aws_lb_target_group" "blog" {
+  name     = "blog"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = module.blog_vpc.vpc_id
+}
+
+resource "aws_lb_target_group_attachment" "blog" {
+  target_group_arn = aws_lb_target_group.blog.arn
+  target_id        = aws_instance.blog.id
+  port             = 80
+}
